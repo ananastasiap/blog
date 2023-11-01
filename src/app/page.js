@@ -1,10 +1,23 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import {
+  Section,
+  Cover,
+  SocialNetworks,
+  BuyMeCoffee,
+  Title
+} from "@/components"
+// import { Fragment } from "react";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      Let us blog
+    <main>
+      <Section>
+        <Cover title="Anastasia<br/> Popova"/>
+        <SocialNetworks />
+        <BuyMeCoffee />
+      </Section>
+      <Section>
+        <Title>New Post</Title>
+      </Section>
     </main>
   )
 }
