@@ -16,7 +16,7 @@ import { loadData } from "@/api/posts";
 
 const LOAD_MORE_STEP = 4;
 
-export default async function Home() {
+export default function Home() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
