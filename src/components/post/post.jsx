@@ -5,9 +5,13 @@ import styles from './post.module.scss';
 
 const Post = ({
   className,
+  image,
+  title,
+  description,
+  slug
 }) => {
   return(
-    <div>Post</div>
+    <div>{title}</div>
   )
 }
 

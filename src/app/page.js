@@ -1,15 +1,33 @@
+"use client";
+
+import { useState, useEffect, Fragment } from "react";
+
 import {
   Section,
   Cover,
   SocialNetworks,
   BuyMeCoffee,
-  Title
-} from "@/components"
-import { Fragment } from "react";
+  Title,
+  PostGrid,
+  Post
+} from "@/components";
+
+import { loadData } from "@/api/posts";
 
 const LOAD_MORE_STEP = 4;
 
-export default function Home({ posts }) {
+export default async function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const { initialPosts, total } = await loadData(0, LOAD_MORE_STEP);
+      setPosts(initialPosts);
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <Fragment>
       <header>
@@ -22,17 +40,16 @@ export default function Home({ posts }) {
       <main>
         <Section>
           <Title>New Post</Title>
-
+          <PostGrid>
+            {posts.map((post) => (
+              <Post
+                key={post.slug.current}
+                {...post}
+              />
+            ))}
+          </PostGrid>
         </Section>
       </main>
     </Fragment>
   )
-}
-
-export const getServerSideProps = async () => {
-  const { posts, total } = await loadData(0, LOAD_MORE_STEP);
-};
-
-async function loadData(start, end) {
-
 }

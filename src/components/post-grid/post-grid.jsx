@@ -5,9 +5,12 @@ import styles from './post-grid.module.scss';
 
 const PostGrid = ({
   className,
+  children
 }) => {
   return(
-    <div>PostGrid</div>
+    <div className={cl(className, styles.postGrid)}>
+      { children }
+    </div>
   )
 }
 
