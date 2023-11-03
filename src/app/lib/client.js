@@ -10,7 +10,7 @@ export const client = createClient({
   projectId: clientConfig.projectId,
   dataset: clientConfig.dataset,
   token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
-  apiVersion: '2023-11-02',
+  apiVersion: '2021-10-21',
   useCdn: true,
   ignoreBrowserTokenWarning: true,
 });

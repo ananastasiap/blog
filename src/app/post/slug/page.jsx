@@ -1,21 +1,29 @@
 import React from "react";
 
-// import { client } from "../lib/client";
+import { client } from "@/app/lib/client";
+
+import { Article } from "@/app/components";
 
 // import cl from 'classnames';
 // import stlyes from './styles.module.scss';
 
-import { Article } from "../components";
+async function getData(slug) {
+  const query = `*[_type == "post" && slug.current == "${slug}"][0]`;
 
-const Post = ({ post}) => {
+  const data = await client.fetch(query);
+
+  return data;
+}
+
+export default async function Post({ post }) {
+  const data = await getData(post.slug);
+
   return (
     <Article>
-      Article
+      {data}
     </Article>
   )
 }
-
-export default Post;
 
 // export async function getStaticPath() {
 //   const query = `*[type == "post"] {
