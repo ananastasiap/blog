@@ -9,24 +9,49 @@ import {
   BuyMeCoffee,
   Title,
   PostGrid,
-  Post
+  Post,
+  Button
 } from "@/components";
 
-import { loadData } from "@/api/posts";
+import { loadData } from "./api/posts";
 
 const LOAD_MORE_STEP = 4;
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [loadedAmount, setLoadedAmount] = useState(LOAD_MORE_STEP);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
-      const { initialPosts, total } = await loadData(0, LOAD_MORE_STEP);
-      setPosts(initialPosts);
+      const { posts, total } = await loadData(0, LOAD_MORE_STEP);
+      setPosts(posts);
+      setTotal(total);
     }
 
     fetchData();
   }, []);
+
+  const isLoadButton = total > loadedAmount;
+
+  const getMorePosts = async () => {
+    setLoading(true)
+
+    try {
+      const response = await fetch(`./api/posts?start=${loadedAmount}&end=${loadedAmount + LOAD_MORE_STEP}`);
+      const data = await response.json();
+
+      console.log(data);
+
+      setLoadedAmount(loadedAmount + LOAD_MORE_STEP);
+      setPosts([...posts, ...data.posts]);
+    } catch (error) {
+      console.error(error);
+    }
+
+    setLoading(false);
+  }
 
   return (
     <Fragment>
@@ -48,6 +73,19 @@ export default function Home() {
               />
             ))}
           </PostGrid>
+          {isLoadButton && (
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}>
+              <Button
+                onClick={getMorePosts}
+                disabled={loading}
+              >
+                Load more posts...
+              </Button>
+            </div>
+          )}
         </Section>
       </main>
     </Fragment>
