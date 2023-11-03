@@ -11,7 +11,7 @@ import {
   PostGrid,
   Post,
   Button
-} from "@/components";
+} from "./components";
 
 import { loadData } from "./api/posts";
 
@@ -39,10 +39,8 @@ export default function Home() {
     setLoading(true)
 
     try {
-      const response = await fetch(`./api/posts?start=${loadedAmount}&end=${loadedAmount + LOAD_MORE_STEP}`);
+      const response = await fetch(`/api/posts?start=${loadedAmount}&end=${loadedAmount + LOAD_MORE_STEP}`);
       const data = await response.json();
-
-      console.log(data);
 
       setLoadedAmount(loadedAmount + LOAD_MORE_STEP);
       setPosts([...posts, ...data.posts]);
