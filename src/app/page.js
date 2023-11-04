@@ -39,7 +39,11 @@ export default function Home() {
     setLoading(true)
 
     try {
-      const response = await fetch(`/api/posts?start=${loadedAmount}&end=${loadedAmount + LOAD_MORE_STEP}`);
+      const params = new URLSearchParams();
+      params.append('start', loadedAmount);
+      params.append('end', loadedAmount + LOAD_MORE_STEP);
+      const response = await fetch(`/api/posts?${params.toString()}`);
+      // const response = await fetch(`/api/posts?start=${loadedAmount}&end=${loadedAmount + LOAD_MORE_STEP}`);
       const data = await response.json();
 
       setLoadedAmount(loadedAmount + LOAD_MORE_STEP);

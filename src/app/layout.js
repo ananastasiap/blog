@@ -1,10 +1,16 @@
-import '../styles/reset.scss';
-import '../styles/global.scss';
+import './reset.scss'
+import './global.scss';
+
+import { Poppins } from 'next/font/google';
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['100', '300', '500', '700', '900']
+});
 
 export default function RootLayout({ children }) {
  return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={poppins.className}>{children}</body>
     </html>
   )
 }
