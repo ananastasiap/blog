@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "next/head";
 
 import { format } from 'date-fns';
 
@@ -16,14 +15,19 @@ async function getData(slug) {
   return data;
 }
 
+export async function generateMetadata({ params }) {
+  const product = await getData(params.slug);
+
+  return {
+    title: product.title,
+  }
+}
+
 export default async function Page({ params }) {
   const data = await getData(params.slug);
   const date = format(new Date(data.publishedDate), 'dd MMM yyyy');
   return (
     <Article backUrl="/" className={styles.post}>
-      <Head>
-        <title>{data.meta_title}</title>
-      </Head>
       <Title className={styles.postTitle}>
         {data.title}
       </Title>
