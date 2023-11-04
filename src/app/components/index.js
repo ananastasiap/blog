@@ -8,3 +8,4 @@ export { default as Title } from './title/title';
 export { default as Cover } from './cover/cover';
 export { default as Section } from './section/section';
 export { default as Article } from './article/article';
+export { default as LoadingPage} from './loading-page/loading-page';

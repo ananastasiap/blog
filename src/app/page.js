@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, Fragment } from "react";
-import Head from "next/head";
 
 import {
   Section,
@@ -15,6 +14,7 @@ import {
 } from "./components";
 
 import { loadData } from "./api/posts";
+import { client } from "./lib/client";
 
 const LOAD_MORE_STEP = 4;
 
@@ -37,18 +37,13 @@ export default function Home() {
   const isLoadButton = total > loadedAmount;
 
   const getMorePosts = async () => {
-    setLoading(true)
+    setLoading(true);
 
     try {
-      // const params = new URLSearchParams();
-      // params.append('start', loadedAmount);
-      // params.append('end', loadedAmount + LOAD_MORE_STEP);
-      // const response = await fetch(`/api/posts?${params.toString()}`);
-      const response = await fetch(`/api/posts?start=${loadedAmount}&end=${loadedAmount + LOAD_MORE_STEP}`);
-      const data = await response.json();
+      const { posts } = await loadData(loadedAmount, loadedAmount + LOAD_MORE_STEP);
 
       setLoadedAmount(loadedAmount + LOAD_MORE_STEP);
-      setPosts([...posts, ...data.posts]);
+      setPosts((prevPosts) => [...prevPosts, ...posts]);
     } catch (error) {
       console.error(error);
     }
