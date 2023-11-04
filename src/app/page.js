@@ -55,14 +55,14 @@ export default function Home() {
     <Fragment>
       <header>
         <Section>
-          <Cover title="Anastasia<br/> Popova"/>
+          <Cover title="Arthur<br/> Morgan"/>
           <SocialNetworks />
           <BuyMeCoffee />
         </Section>
       </header>
       <main>
         <Section>
-          <Title>New Post</Title>
+          <Title>Adventures</Title>
           <PostGrid>
             {posts.map((post) => (
               <Post
