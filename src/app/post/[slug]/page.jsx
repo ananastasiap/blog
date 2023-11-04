@@ -1,10 +1,11 @@
 import React from "react";
-import { format } from 'date-fns';
-import { client } from "@/app/lib/client";
+import Head from "next/head";
 
+import { format } from 'date-fns';
+
+import { client } from "@/app/lib/client";
 import { Article, Title, Content } from "@/app/components";
 
-// import cl from 'classnames';
 import styles from './slug.module.scss';
 
 async function getData(slug) {
@@ -20,6 +21,9 @@ export default async function Page({ params }) {
   const date = format(new Date(data.publishedDate), 'dd MMM yyyy');
   return (
     <Article backUrl="/" className={styles.post}>
+      <Head>
+        <title>{data.meta_title}</title>
+      </Head>
       <Title className={styles.postTitle}>
         {data.title}
       </Title>
